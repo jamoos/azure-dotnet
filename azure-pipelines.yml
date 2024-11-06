@@ -28,9 +28,10 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
 
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'azure-dotnet'
+    publishVstsFeed: 'e87fdb84-f489-4d53-b849-4c54fa99d27b/42bf8ed2-8699-4fc1-8346-1400e3499e54'
