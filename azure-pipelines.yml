@@ -13,12 +13,12 @@ variables:
   buildVersion: "$(Major).$(Minor).$(Patch)"
 
 steps:
-  # - task: UseDotNet@2
-  #   displayName: "Setup dot net..- maybe remove"
-  #   inputs:
-  #     packageType: "sdk"
-  #     version: "8.x"
-  #
+  - task: UseDotNet@2
+    displayName: "Setup dotnet.."
+    inputs:
+      packageType: "sdk"
+      version: "8.x"
+
   - task: DotNetCoreCLI@2
     displayName: "Build"
     inputs:
