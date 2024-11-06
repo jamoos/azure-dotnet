@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'Azure Pipelines'
+  name: 'macbook'
 
 steps:
 - task: UseDotNet@2
