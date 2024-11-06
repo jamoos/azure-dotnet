@@ -12,16 +12,19 @@ variables:
 
 steps:
   - task: UseDotNet@2
+    displayName: "Setup dot net..- maybe remove"
     inputs:
       packageType: "sdk"
       version: "8.x"
 
   - task: DotNetCoreCLI@2
+    displayName: "Build"
     inputs:
       command: "build"
       projects: "**/*.csproj"
 
   - task: DotNetCoreCLI@2
+    displayName: "Pubish"
     inputs:
       command: "publish"
       publishWebProjects: false
@@ -41,6 +44,7 @@ steps:
     displayName: "Print Version to Console"
 
   - task: DotNetCoreCLI@2
+    displayName: "Push to artifact feed"
     inputs:
       command: "push"
       packagesToPush: "$(Build.ArtifactStagingDirectory)/*.nupkg"
