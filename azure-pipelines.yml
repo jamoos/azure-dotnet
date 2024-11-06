@@ -1,3 +1,5 @@
+name: $(Major).$(Minor).$(Patch)
+
 trigger:
   - main
 
@@ -31,6 +33,10 @@ steps:
       projects: "**/*.csproj"
       arguments: "--configuration Release --output $(Build.ArtifactStagingDirectory)"
 
+  - script: |
+      echo "Version: $(Build.buildVersion)"
+    displayName: "Print Version to Console"
+
   - task: DotNetCoreCLI@2
     displayName: "Pack project with version $(buildVersion)"
     inputs:
@@ -38,10 +44,6 @@ steps:
       packagesToPack: "**/*.csproj"
       versioningScheme: "byBuildNumber"
       arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:PackageId=WallaHelloWorld.$(buildVersion)"
-
-  - script: |
-      echo "Version: $(Build.BuildNumber)"
-    displayName: "Print Version to Console"
 
   - task: DotNetCoreCLI@2
     displayName: "Push to artifact feed"
