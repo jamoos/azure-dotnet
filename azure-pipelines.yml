@@ -4,6 +4,12 @@ trigger:
 pool:
   name: "macbook"
 
+variables:
+  Major: "1"
+  Minor: "0"
+  Patch: $(Build.BuildId)
+  buildVersion: "$(Major).$(Minor).$(Patch)"
+
 steps:
   - task: UseDotNet@2
     inputs:
@@ -23,13 +29,15 @@ steps:
       arguments: "--configuration Release --output $(Build.ArtifactStagingDirectory)"
 
   - task: DotNetCoreCLI@2
+    displayName: "Pack project with version $(buildVersion)"
     inputs:
       command: "pack"
       packagesToPack: "**/*.csproj"
       versioningScheme: "byBuildNumber"
+      arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) /p:PackageId=WallaHelloWorld.$(buildVersion)"
 
   - script: |
-      echo "Version: $(Build.BuildId)"
+      echo "Version: $(Build.BuildNumber)"
     displayName: "Print Version to Console"
 
   - task: DotNetCoreCLI@2
