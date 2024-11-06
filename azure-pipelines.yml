@@ -26,8 +26,11 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
-    versioningScheme: 'off'
+    versioningScheme: 'byBuildNumber'
 
+- script: |
+      echo "Version: $(Build.BuildNumber)"
+  displayName: 'Print Version to Console'
 
 - task: DotNetCoreCLI@2
   inputs:
